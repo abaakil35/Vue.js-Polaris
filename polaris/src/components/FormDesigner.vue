@@ -78,6 +78,222 @@
             </div>
           </div>
 
+          <!-- Bouton d'Achat Customization Section -->
+          <div class="form-selection-container">
+            <div class="button-customization-header">
+              <div>
+                <Text variant="headingMd" as="h2">Bouton d'Achat</Text>
+                <Text variant="bodyMd" as="p"
+                  >Personnalisez le Bouton d'Achat du formulaire</Text
+                >
+              </div>
+              <div class="preview-button-wrapper">
+                <Button @click="toggleButtonPreview">
+                  Preview
+                  <template #icon>
+                    <span v-html="toggleIcon"></span>
+                  </template>
+                </Button>
+              </div>
+            </div>
+
+            <div
+              v-if="showButtonCustomization"
+              class="button-customization-options"
+            >
+              <!-- Text customization -->
+              <div class="customization-row">
+                <div class="customization-label">
+                  <Text variant="bodyMd">Texte du bouton</Text>
+                </div>
+                <div class="customization-input">
+                  <TextField v-model="buttonText" />
+                </div>
+              </div>
+
+              <!-- Sous-titre customization -->
+              <div class="customization-row">
+                <div class="customization-label">
+                  <Text variant="bodyMd">Sous-titre du bouton</Text>
+                </div>
+                <div class="customization-input">
+                  <TextField v-model="buttonSubtitle" />
+                </div>
+              </div>
+
+              <!-- Animation option -->
+              <div class="customization-row">
+                <div class="customization-label">
+                  <Text variant="bodyMd">Animation du bouton</Text>
+                </div>
+                <div class="customization-input">
+                  <Select
+                    v-model="buttonAnimation"
+                    :options="animationOptions"
+                  />
+                </div>
+              </div>
+
+              <!-- Icon option -->
+              <div class="customization-row">
+                <div class="customization-label">
+                  <Text variant="bodyMd">Icône du bouton</Text>
+                </div>
+                <div class="customization-input">
+                  <Select v-model="buttonIcon" :options="iconOptions" />
+                </div>
+              </div>
+
+              <!-- Button Position -->
+              <div class="customization-row">
+                <div class="customization-label">
+                  <Text variant="bodyMd">Position du bouton collant</Text>
+                </div>
+                <div class="customization-input">
+                  <Select v-model="buttonPosition" :options="positionOptions" />
+                </div>
+              </div>
+
+              <!-- Background color -->
+              <div class="customization-row">
+                <div class="customization-label">
+                  <Text variant="bodyMd">Couleur de l'arrière plan</Text>
+                </div>
+                <div class="customization-input color-input">
+                  <div
+                    class="color-preview"
+                    :style="{ backgroundColor: buttonBgColor }"
+                  ></div>
+                  <div class="color-input-group">
+                    <input
+                      type="color"
+                      v-model="buttonBgColor"
+                      class="color-picker"
+                    />
+                    <TextField
+                      v-model="buttonBgColor"
+                      placeholder="rgba(0,0,0,1)"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <!-- Text size slider -->
+              <div class="customization-row">
+                <div class="customization-label">
+                  <Text variant="bodyMd">Taille du texte</Text>
+                </div>
+                <div class="customization-input">
+                  <RangeSlider v-model="textSize" min="12" max="24" />
+                </div>
+              </div>
+
+              <!-- Text color -->
+              <div class="customization-row">
+                <div class="customization-label">
+                  <Text variant="bodyMd">Couleur du texte</Text>
+                </div>
+                <div class="customization-input color-input">
+                  <div
+                    class="color-preview"
+                    :style="{ backgroundColor: buttonTextColor }"
+                  ></div>
+                  <div class="color-input-group">
+                    <input
+                      type="color"
+                      v-model="buttonTextColor"
+                      class="color-picker"
+                    />
+                    <TextField
+                      v-model="buttonTextColor"
+                      placeholder="#FFFFFF"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <!-- Border radius -->
+              <div class="customization-row">
+                <div class="customization-label">
+                  <Text variant="bodyMd">Rayon de bordure</Text>
+                </div>
+                <div class="customization-input">
+                  <input
+                    type="number"
+                    v-model.number="borderRadius"
+                    min="0"
+                    class="number-input"
+                  />
+                </div>
+              </div>
+
+              <!-- Border width -->
+              <div class="customization-row">
+                <div class="customization-label">
+                  <Text variant="bodyMd">Largeur de la bordure</Text>
+                </div>
+                <div class="customization-input">
+                  <input
+                    type="number"
+                    v-model.number="borderWidth"
+                    min="0"
+                    class="number-input"
+                  />
+                </div>
+              </div>
+
+              <!-- Border color -->
+              <div class="customization-row">
+                <div class="customization-label">
+                  <Text variant="bodyMd">Couleur de la bordure</Text>
+                </div>
+                <div class="customization-input color-input">
+                  <div
+                    class="color-preview"
+                    :style="{ backgroundColor: borderColor }"
+                  ></div>
+                  <div class="color-input-group">
+                    <input
+                      type="color"
+                      v-model="borderColor"
+                      class="color-picker"
+                    />
+                    <TextField
+                      v-model="borderColor"
+                      placeholder="rgba(0,0,0,1)"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <!-- Shadow -->
+              <div class="customization-row">
+                <div class="customization-label">
+                  <Text variant="bodyMd">Ombre</Text>
+                </div>
+                <div class="customization-input">
+                  <TextField
+                    v-model="boxShadow"
+                    placeholder="ex: 0 4px 12px rgba(0,0,0,0.15)"
+                  />
+                </div>
+              </div>
+
+              <!-- Sticky on mobile -->
+              <div class="customization-row">
+                <div class="customization-input">
+                  <label class="toggle-label">
+                    <input type="checkbox" v-model="stickyMobile" />
+                    <span
+                      >Activer le bouton collant sur les appareils mobiles
+                      (uniquement sur les pages de produits)</span
+                    >
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <!-- Info Banner based on selection -->
         </BlockStack>
       </div>
@@ -85,7 +301,32 @@
       <div class="preview-section">
         <Text variant="headingMd" as="h2">Aperçu en direct :</Text>
         <div class="preview-container">
-          <!-- Preview content will go here -->
+          <!-- Button Preview -->
+          <div
+            :class="[
+              'preview-button-container',
+              { 'sticky-mobile': stickyMobile },
+            ]"
+          >
+            <button
+              v-if="showButtonCustomization"
+              class="custom-preview-button"
+              :style="buttonStyles"
+              :animation="buttonAnimation.value"
+            >
+              <span
+                v-if="buttonIconDisplay"
+                class="button-icon"
+                v-html="selectedIconSvg"
+              ></span>
+              <div class="button-text-content">
+                {{ buttonText }}
+                <small v-if="buttonSubtitle" class="button-subtitle">{{
+                  buttonSubtitle
+                }}</small>
+              </div>
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -93,15 +334,19 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 // Import components
 import {
   Banner,
   BlockStack,
+  Button,
   Card,
   Icon,
   InlineStack,
+  RangeSlider,
+  Select,
   Text,
+  TextField,
 } from "@ownego/polaris-vue";
 
 // SVG icons for the component
@@ -113,18 +358,115 @@ const PageMinor = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><
 
 const CancelMinor = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M6.707 6.707a1 1 0 0 0-1.414 1.414L8.586 10l-3.293 3.293a1 1 0 1 0 1.414 1.414L10 11.414l3.293 3.293a1 1 0 0 0 1.414-1.414L11.414 10l3.293-3.293a1 1 0 0 0-1.414-1.414L10 8.586 6.707 5.293z" fill="currentColor"/></svg>`;
 
+const ChevronDownMinor = `<svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 14a.997.997 0 0 1-.707-.293l-5-5a.999.999 0 1 1 1.414-1.414L10 11.586l4.293-4.293a.999.999 0 1 1 1.414 1.414l-5 5A.997.997 0 0 1 10 14z" fill="currentColor"/></svg>`;
+
+const ChevronUpMinor = `<svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M15 13a.997.997 0 0 1-.707-.293L10 8.414l-4.293 4.293a.999.999 0 1 1-1.414-1.414l5-5a.999.999 0 0 1 1.414 0l5 5A.999.999 0 0 1 15 13z" fill="currentColor"/></svg>`;
+
 // State for selected form mode and banner visibility
 const selectedMode = ref("popup"); // Default to popup option
 const showBanner = ref(true); // State to control banner visibility
 
-// Function to select form mode
+// Button customization states
+const showButtonCustomization = ref(false);
+const isButtonVisible = ref(true);
+const buttonText = ref("Achetez avec paiement à la livraison");
+const buttonSubtitle = ref("");
+const buttonAnimation = ref("none");
+const buttonIcon = ref("none");
+const buttonPosition = ref("none");
+const buttonBgColor = ref("rgb(0,0,0)");
+const textSize = ref(16);
+const buttonTextColor = ref("white");
+const borderRadius = ref(4);
+const borderWidth = ref(0);
+const borderColor = ref("transparent");
+const boxShadow = ref("");
+const stickyMobile = ref(false);
+
+// Options for selects
+const animationOptions = [
+  { label: "Aucun", value: "none" },
+  { label: "Pulse", value: "pulse" },
+  { label: "Bounce", value: "bounce" },
+  { label: "Shake", value: "shake" },
+  { label: "Fade", value: "fade" },
+];
+
+const iconOptions = [
+  { label: "Aucun", value: "none" },
+  { label: "Panier", value: "cart" },
+  { label: "Flèche", value: "arrow" },
+  { label: "Étoile", value: "star" },
+];
+
+const positionOptions = [
+  { label: "Fond", value: "bottom" },
+  { label: "Haut", value: "top" },
+  { label: "Aucun", value: "none" },
+];
+
+// Computed properties
+const buttonIconDisplay = computed(() => buttonIcon.value !== "none");
+
+const toggleIcon = computed(() => {
+  return showButtonCustomization.value ? ChevronUpMinor : ChevronDownMinor;
+});
+
+const selectedIconSvg = computed(() => {
+  switch (buttonIcon.value) {
+    case "cart":
+      return `<svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M17.16 6.42a.75.75 0 0 1 .57.89l-1.37 6.1A2.75 2.75 0 0 1 13.72 16H6.78a2.75 2.75 0 0 1-2.64-2.59L3.26 3.82a1.75 1.75 0 0 0-1.75-1.57H1a.75.75 0 0 1 0-1.5h.51c1.66 0 3.05 1.24 3.24 2.9l.36 3.6h15.13c.41 0 .75.34.75.75 0 .08-.01.16-.04.23l-1.69 5.89a.25.25 0 0 1-.24.18H6.78a.25.25 0 0 1-.24-.19l-.93-4.76.84-10.98zm-.77 1.5H5.32l.59 5.93a1.75 1.75 0 0 0 1.68 1.65h6.82L15.73 9h-1.58c-.5 0-.86-.19-1.12-.45-.26.26-.63.45-1.12.45H8.1a.75.75 0 1 1 0-1.5h3.8c.19 0 .35-.1.35-.25s-.16-.25-.35-.25H8.1a.75.75 0 1 1 0-1.5h3.8c.19 0 .35-.1.35-.25s-.16-.25-.35-.25H8.1a.75.75 0 0 1 0-1.5h12l-.35 1.5h-1.58c-.19 0-.35.1-.35.25s.16.25.35.25h1.46l-.23 1zM8.75 17a1.25 1.25 0 1 0 0 2.5 1.25 1.25 0 0 0 0-2.5zm4.5 0a1.25 1.25 0 1 0 0 2.5 1.25 1.25 0 0 0 0-2.5z" fill="currentColor"/>
+             </svg>`;
+    case "arrow":
+      return `<svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path d="M17.707 9.293l-5-5a.999.999 0 10-1.414 1.414L14.586 9H3a1 1 0 100 2h11.586l-3.293 3.293a.999.999 0 101.414 1.414l5-5a.999.999 0 000-1.414z" fill="currentColor"/>
+             </svg>`;
+    case "star":
+      return `<svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10 1L7 7H1l5 4-2 7 6-3 6 3-2-7 5-4h-6l-3-6z" fill="currentColor"/>
+             </svg>`;
+    default:
+      return "";
+  }
+});
+
+const buttonStyles = computed(() => {
+  // Ensure background color is applied correctly
+  return {
+    backgroundColor: buttonBgColor.value,
+    color: buttonTextColor.value,
+    fontSize: `${textSize.value}px`,
+    borderRadius: `${borderRadius.value}px`,
+    border:
+      borderWidth.value > 0
+        ? `${borderWidth.value}px solid ${borderColor.value}`
+        : "none",
+    boxShadow: boxShadow.value || "none",
+    animation:
+      buttonAnimation.value !== "none"
+        ? `${buttonAnimation.value} 2s infinite`
+        : "none",
+  };
+});
+
+// Functions
 function selectMode(mode) {
   selectedMode.value = mode;
 }
 
-// Function to dismiss the banner
 function dismissBanner() {
   showBanner.value = false;
+}
+
+function toggleButtonPreview() {
+  showButtonCustomization.value = !showButtonCustomization.value;
+  // Hide the button when showing customization options
+  if (showButtonCustomization.value) {
+    isButtonVisible.value = false;
+  } else {
+    isButtonVisible.value = true;
+  }
 }
 </script>
 
@@ -279,23 +621,271 @@ function dismissBanner() {
 .design-preview-layout {
   display: flex;
   gap: 20px;
+  height: calc(
+    100vh - 120px
+  ); /* Set a height for the layout to enable scrolling */
 }
 
 .design-section {
   flex: 3;
   min-width: 0;
+  overflow-y: auto; /* Keep scrolling functionality */
+  max-height: 100%;
+  padding-right: 2px; /* Reduced padding since there's no scrollbar */
 }
 
 .preview-section {
   flex: 2;
   min-width: 0;
+  overflow-y: auto; /* Keep scrolling functionality */
+  max-height: 100%;
+  padding-right: 2px; /* Reduced padding since there's no scrollbar */
 }
 
 .preview-container {
   height: 500px;
   background-color: #f0f0f0;
   border-radius: 8px;
-  overflow: hidden;
+  overflow: auto; /* Keep scrolling functionality */
   margin-top: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Button Customization Styles */
+.button-customization-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.button-customization-options {
+  border-top: 1px solid #dfe3e8;
+  padding-top: 20px;
+}
+
+.customization-row {
+  display: flex;
+  margin-bottom: 16px;
+}
+
+.customization-label {
+  flex: 1;
+  padding-right: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.customization-input {
+  flex: 2;
+}
+
+.color-input {
+  display: flex;
+  align-items: center;
+}
+
+.color-preview {
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  border: 1px solid #dfe3e8;
+  margin-right: 8px;
+}
+
+.color-input-group {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  gap: 8px;
+}
+
+.color-picker {
+  width: 40px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid #dfe3e8;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.custom-preview-button {
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 200px;
+  transition: all 0.3s ease;
+}
+
+/* Animation styles */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  75% {
+    transform: translateX(5px);
+  }
+}
+
+@keyframes fade {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.custom-preview-button[animation="pulse"] {
+  animation: pulse 2s infinite;
+}
+
+.custom-preview-button[animation="bounce"] {
+  animation: bounce 2s infinite;
+}
+
+.custom-preview-button[animation="shake"] {
+  animation: shake 2s infinite;
+}
+
+.custom-preview-button[animation="fade"] {
+  animation: fade 2s infinite;
+}
+
+.button-icon {
+  display: inline-flex;
+  margin-right: 8px;
+  width: 20px;
+  height: 20px;
+}
+
+.button-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.button-text-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.button-subtitle {
+  font-size: 80%;
+  opacity: 0.8;
+  margin-top: 4px;
+}
+
+.preview-button-wrapper {
+  margin-left: 16px;
+}
+
+.preview-button-container {
+  padding: 20px;
+}
+
+.sticky-mobile .custom-preview-button {
+  display: inline-flex;
+}
+
+/* mobile sticky behavior */
+@media (max-width: 768px) {
+  .sticky-mobile {
+    position: fixed;
+    left: 16px;
+    right: 16px;
+    bottom: 12px;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    pointer-events: auto;
+  }
+  .sticky-mobile .custom-preview-button {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.number-input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #dfe3e8;
+  border-radius: 4px;
+}
+
+/* Toggle label styling: checkbox left, multi-line text to the right */
+.toggle-label {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  cursor: pointer;
+}
+
+.toggle-label input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin: 4px 0 0 0; /* slight top offset so it aligns with first line */
+  flex: 0 0 18px;
+}
+
+.toggle-label span {
+  display: block;
+  line-height: 1.3;
+  color: #202223;
+  font-size: 14px;
+}
+
+/* Hide scrollbars for all sections */
+.design-section::-webkit-scrollbar,
+.preview-section::-webkit-scrollbar,
+.preview-container::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none; /* Hide scrollbar */
+}
+
+/* For Firefox */
+.design-section,
+.preview-section,
+.preview-container {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
 }
 </style>
