@@ -361,8 +361,13 @@
                   <Text as="p" variant="bodyMd">
                     Activez plusieurs pays sur le formulaire ici :
                   </Text>
-                  <Button size="large" variant="primary" @click="onMultiCountry">
-                    Activer le multi-pays
+                  <Button
+                    size="large"
+                    variant="primary"
+                    @click="onMultiCountry"
+                    :style="multiCountryActive ? { backgroundColor: '#d9534f', color: '#fff', borderColor: '#c12e2a' } : {}"
+                  >
+                    {{ multiCountryActive ? 'Désactiver le multi-pays' : 'Activer le multi-pays' }}
                   </Button>
                 </BlockStack>
               </BlockStack>
@@ -422,9 +427,11 @@ const countryOptions = [
   { label: "Tunisia", value: "Tunisia" },
   { label: "Other", value: "Other" },
 ];
+// Multi-country activation state
+const multiCountryActive = ref(false);
+
 function onMultiCountry() {
-  // Placeholder for multi-country activation logic
-  alert("Multi-pays activé !");
+  multiCountryActive.value = !multiCountryActive.value;
 }
 // Import components
 import {
@@ -570,7 +577,7 @@ function toggleButtonPreview() {
   margin-top: 6px;
   background-color: white;
   border-radius: 8px;
-
+  box-shadow: 0 6px 20px rgba(22, 23, 24, 0.08);
   /* You can now change padding, max-width, etc. for just the country selector */
 }
 .form-selection-container {
@@ -582,6 +589,9 @@ function toggleButtonPreview() {
 
   border-radius: 8px;
   padding: 20px;
+  /* Match country selector visual style */
+  border: 1px solid #e6e9ee;
+  box-shadow: 0 6px 20px rgba(22, 23, 24, 0.08);
 }
 
 .selection-cards {
