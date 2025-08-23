@@ -6,7 +6,7 @@
 
     <div class="design-preview-layout">
       <div class="design-section">
-        <BlockStack gap="400">
+        <BlockStack gap="400" class="left-stack">
           <Text variant="headingMd" as="h2"
             >1. Sélectionnez votre mode de formulaire</Text
           >
@@ -374,6 +374,51 @@
             </Card>
           </div>
 
+          <!-- 3. Personnalisez votre formulaire (Polaris Card) -->
+          <Text variant="headingMd" as="h2" fontWeight="bold">3. Personnalisez votre formulaire</Text>
+          <div class="personalize-container">
+            <Card padding="500" rounded="large" class="personalize-card">
+              <BlockStack gap="300">
+
+                <div class="customize-card-body">
+                  <div class="status-list">
+                    <div class="status-row">
+                      <span class="status-box status-gray" aria-hidden="true"></span>
+                      <div class="status-text">Les blocs gris sont <strong>désactivés</strong> sur votre formulaire. Utilisez le bouton en forme d'œil pour les activer.</div>
+                    </div>
+
+                    <div class="status-row">
+                      <span class="status-box status-white" aria-hidden="true"></span>
+                      <div class="status-text">Les blocs blancs sont <strong>actifs</strong> sur votre formulaire.</div>
+                    </div>
+
+                    <div class="status-row">
+                      <span class="status-box status-blue" aria-hidden="true"></span>
+                      <div class="status-text">Les blocs bleus sont activés lorsque vous faites glisser une carte sur le formulaire. Relâchez la carte pour compléter l'action.</div>
+                    </div>
+                  </div>
+
+                  <div class="actions-list">
+                    <div class="action-row">
+                      <span class="action-icon" v-html="PencilMinor"></span>
+                      <div class="action-text">Cliquez sur le bouton <strong>crayon</strong> pour modifier un bloc.</div>
+                    </div>
+
+                    <div class="action-row">
+                      <span class="action-icon" v-html="GripMinor"></span>
+                      <div class="action-text">Appuyez et déplacez le bouton <strong>tracteur</strong> pour déplacer un bloc.</div>
+                    </div>
+
+                    <div class="action-row">
+                      <span class="action-icon" v-html="ArrowsMinor"></span>
+                      <div class="action-text">Cliquez sur les boutons <strong>flèches</strong> pour modifier la position d'un bloc.</div>
+                    </div>
+                  </div>
+                </div>
+              </BlockStack>
+            </Card>
+          </div>
+
         </BlockStack>
       </div>
 
@@ -457,6 +502,12 @@ const PageMinor = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><
 const CancelMinor = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M6.707 6.707a1 1 0 0 0-1.414 1.414L8.586 10l-3.293 3.293a1 1 0 1 0 1.414 1.414L10 11.414l3.293 3.293a1 1 0 0 0 1.414-1.414L11.414 10l3.293-3.293a1 1 0 0 0-1.414-1.414L10 8.586 6.707 5.293z" fill="currentColor"/></svg>`;
 
 const ChatBubbleMinor = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2 5.5A3.5 3.5 0 015.5 2h9A3.5 3.5 0 0118 5.5v4A3.5 3.5 0 0114.5 13H8.7L5 16.5V13H5.5A3.5 3.5 0 012 9.5v-4z" fill="currentColor"/></svg>`;
+
+const PencilMinor = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M3 14.25V17h2.75L16.81 5.94l-2.75-2.75L3 14.25zM18.71 4.04a1 1 0 000-1.41l-1.34-1.34a1 1 0 00-1.41 0l-1.83 1.83 2.75 2.75 1.83-1.83z" fill="currentColor"/></svg>`;
+
+const GripMinor = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M6 4a1 1 0 110-2 1 1 0 010 2zm4 0a1 1 0 110-2 1 1 0 010 2zm4 0a1 1 0 110-2 1 1 0 010 2zM6 10a1 1 0 110-2 1 1 0 010 2zm4 0a1 1 0 110-2 1 1 0 010 2zm4 0a1 1 0 110-2 1 1 0 010 2zM6 16a1 1 0 110-2 1 1 0 010 2zm4 0a1 1 0 110-2 1 1 0 010 2zm4 0a1 1 0 110-2 1 1 0 010 2z" fill="currentColor"/></svg>`;
+
+const ArrowsMinor = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M7 3l3 3-3 3V8H3V6h4V3zm6 14l-3-3 3-3v1h4v2h-4v1z" fill="currentColor"/></svg>`;
 
 const ChevronDownMinor = `<svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 14a.997.997 0 0 1-.707-.293l-5-5a.999.999 0 1 1 1.414-1.414L10 11.586l4.293-4.293a.999.999 0 1 1 1.414 1.414l-5 5A.997.997 0 0 1 10 14z" fill="currentColor"/></svg>`;
 
@@ -593,6 +644,30 @@ function toggleButtonPreview() {
   border: 1px solid #e6e9ee;
   box-shadow: 0 6px 20px rgba(22, 23, 24, 0.08);
 }
+
+/* make left stack column flex so we can push the personalize card to bottom */
+.left-stack {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 140px);
+}
+
+.personalize-container { width: 100%; max-width: 400px; }
+.personalize-card { margin-top: auto; }
+
+.status-box { width: 24px; height: 24px; border-radius: 6px; border: 1px solid #dfe3e8; box-shadow: inset 0 1px 0 rgba(255,255,255,0.6); display:inline-block; flex:0 0 auto; }
+.status-gray { background: #f1f3f5; }
+.status-white { background: #ffffff; }
+.status-blue { background: #e8f3ff; border-color: #d5e9ff; }
+.status-text { font-size: 14px; color: #222; line-height: 1.4; }
+
+.action-icon { width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center; color: #5c5f62; flex:0 0 auto; }
+.action-icon svg { width: 12px; height: 12px; }
+.action-text { font-size: 14px; color: #333; }
+
+.status-row { display:flex; gap:12px; align-items:center; }
+.action-row { display:flex; gap:10px; align-items:center; }
+.status-text, .action-text { flex: 1 1 auto; white-space: normal; }
 
 .selection-cards {
   display: flex;
