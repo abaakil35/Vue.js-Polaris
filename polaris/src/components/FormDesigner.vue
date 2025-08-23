@@ -77,6 +77,7 @@
               </Banner>
             </div>
           </div>
+          <!-- Help / Contact card (appears at the bottom of the selection container) -->
 
           <!-- Bouton d'Achat Customization Section -->
           <div class="form-selection-container">
@@ -197,7 +198,7 @@
                   <div
                     class="color-preview"
                     :style="{ backgroundColor: buttonTextColor }"
-                  ></div>
+                  </div>
                   <div class="color-input-group">
                     <input
                       type="color"
@@ -292,6 +293,45 @@
                 </div>
               </div>
             </div>
+
+            <div v-if="showHelpCard" class="selection-help-card">
+              <div class="selection-help-inner">
+                <div class="selection-help-icon">
+                  <span v-html="CircleInformationMajor"></span>
+                </div>
+                <div class="selection-help-body">
+                  <div class="selection-help-header">
+                    <Text variant="headingMd" as="h3" fontWeight="semibold"
+                      >Vous avez besoin de plus de personnalisations ?</Text
+                    >
+                    <button
+                      class="selection-help-close"
+                      @click="showHelpCard = false"
+                      aria-label="Fermer"
+                    >
+                      <span v-html="CancelMinor"></span>
+                    </button>
+                  </div>
+                  <div class="selection-help-text">
+                    Si vous n'aimez pas la
+                    <strong
+                      >la façon dont le bouton d'achat apparaît sur votre
+                      boutique</strong
+                    >
+                    ou si vous souhaitez
+                    <strong>plus de personnalisations</strong>, n'hésitez pas à
+                    nous contacter ! Nos spécialistes de l'assistance vous
+                    aideront à personnaliser le bouton d'achat pour qu'il
+                    réponde pleinement à vos besoins !
+                  </div>
+                  <div class="selection-help-actions">
+                    <button class="selection-contact-button">
+                      Contactez-nous
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
           <!-- Info Banner based on selection -->
@@ -358,6 +398,8 @@ const PageMinor = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><
 
 const CancelMinor = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M6.707 6.707a1 1 0 0 0-1.414 1.414L8.586 10l-3.293 3.293a1 1 0 1 0 1.414 1.414L10 11.414l3.293 3.293a1 1 0 0 0 1.414-1.414L11.414 10l3.293-3.293a1 1 0 0 0-1.414-1.414L10 8.586 6.707 5.293z" fill="currentColor"/></svg>`;
 
+const ChatBubbleMinor = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2 5.5A3.5 3.5 0 015.5 2h9A3.5 3.5 0 0118 5.5v4A3.5 3.5 0 0114.5 13H8.7L5 16.5V13H5.5A3.5 3.5 0 012 9.5v-4z" fill="currentColor"/></svg>`;
+
 const ChevronDownMinor = `<svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 14a.997.997 0 0 1-.707-.293l-5-5a.999.999 0 1 1 1.414-1.414L10 11.586l4.293-4.293a.999.999 0 1 1 1.414 1.414l-5 5A.997.997 0 0 1 10 14z" fill="currentColor"/></svg>`;
 
 const ChevronUpMinor = `<svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M15 13a.997.997 0 0 1-.707-.293L10 8.414l-4.293 4.293a.999.999 0 1 1-1.414-1.414l5-5a.999.999 0 0 1 1.414 0l5 5A.999.999 0 0 1 15 13z" fill="currentColor"/></svg>`;
@@ -382,6 +424,7 @@ const borderWidth = ref(0);
 const borderColor = ref("transparent");
 const boxShadow = ref("");
 const stickyMobile = ref(false);
+const showHelpCard = ref(false);
 
 // Options for selects
 const animationOptions = [
@@ -461,12 +504,10 @@ function dismissBanner() {
 
 function toggleButtonPreview() {
   showButtonCustomization.value = !showButtonCustomization.value;
-  // Hide the button when showing customization options
-  if (showButtonCustomization.value) {
-    isButtonVisible.value = false;
-  } else {
-    isButtonVisible.value = true;
-  }
+  // Hide or show the preview button depending on the customization panel
+  isButtonVisible.value = !showButtonCustomization.value;
+  // Show the help card only when customization options are open
+  showHelpCard.value = showButtonCustomization.value;
 }
 </script>
 
@@ -549,6 +590,84 @@ function toggleButtonPreview() {
 
 .banner-container {
   margin-top: 16px;
+}
+
+/* Selection help card styles (bottom of selection container) */
+.selection-help-card {
+  margin-top: 16px;
+  background: #fff;
+  border-radius: 10px;
+  border: 1px solid #e6e9ee;
+  box-shadow: 0 6px 20px rgba(22, 23, 24, 0.08);
+  padding: 14px;
+}
+.selection-help-inner {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  position: relative;
+}
+.selection-help-icon span svg {
+  width: 36px;
+  height: 36px;
+  color: #0b7a78;
+}
+.selection-help-body {
+  flex: 1;
+}
+.selection-help-text {
+  font-size: 14px;
+  color: #333;
+  margin-top: 6px;
+  line-height: 1.35;
+}
+.selection-help-actions {
+  margin-top: 12px;
+}
+.selection-help-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.selection-contact-button {
+  --btn-bg: #fff;
+  --btn-border: #dfe3e8;
+  background: var(--btn-bg);
+  border: 1px solid var(--btn-border);
+  padding: 8px 12px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(22, 23, 24, 0.06);
+}
+.selection-contact-button span svg {
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+}
+.selection-help-close {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #5c5f62;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+.selection-help-close:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  color: #202223;
+}
+.selection-help-close span {
+  display: flex;
+  width: 16px;
+  height: 16px;
+}
+.selection-help-close span svg {
+  width: 100%;
+  height: 100%;
 }
 
 .banner-content-wrapper {
