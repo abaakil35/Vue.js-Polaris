@@ -2,6 +2,8 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import PolarisVue from "@ownego/polaris-vue";
 import "@ownego/polaris-vue/dist/style.css";
+import './assets/main.css'
+
 
 const app = createApp(App);
 
