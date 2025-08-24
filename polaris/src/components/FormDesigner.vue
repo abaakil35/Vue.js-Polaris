@@ -1,7 +1,7 @@
 <template>
   <BlockStack gap="600">
     <Text variant="headingLg" as="h1" fontWeight="bold"
-      >Concepteur de Formulaire</Text
+      >Form Builder :</Text
     >
 
     <div class="design-preview-layout">
