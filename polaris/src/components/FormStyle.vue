@@ -44,7 +44,7 @@
               border: 1px solid #d1d5db;
             "
           />
-          <TextField v-model="bgColor" style="width: 150px" />
+          <TextField v-model="bgColor" style="width: 80%" />
         </InlineStack>
       </BlockStack>
 

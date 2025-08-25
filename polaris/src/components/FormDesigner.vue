@@ -423,9 +423,10 @@
           <DraggableBlocks />
 
           <!-- Form Style Section at the bottom of the left column -->
-          <div class="form-style-bottom-container">
+          <BlockStack gap="200" class="form-style-bottom-container">
             <FormStyle />
-          </div>
+            <GenericErrorTexts />
+          </BlockStack>
         </BlockStack>
       </div>
 
@@ -451,6 +452,7 @@ import { ref, computed } from "vue";
 import RightPreveiwForm from './RightPreveiwForm.vue'
 import DraggableBlocks from './DraggableBlocks.vue'
 import FormStyle from './FormStyle.vue'
+import GenericErrorTexts from './GenericErrorTexts.vue'
 // Country selector state and logic (inlined from CountrySelector.vue)
 const selectedCountry = ref("Morocco");
 const countryOptions = [
