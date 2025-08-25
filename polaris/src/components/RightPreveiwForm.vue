@@ -54,9 +54,7 @@
 
     <!-- Address Form -->
     <div>
-      <h3 class="text-base font-semibold text-center mb-4">
-        Enter your shipping address
-      </h3>
+      <h3 class="font-bold text-center mb-4">Enter your shipping address</h3>
       <form class="form-fields">
         <!-- First Name -->
         <TextField
@@ -258,8 +256,11 @@ const computedButtonStyles = computed(() => {
   };
 });
 </script>
-// ...existing code...
 <style scoped>
+h3 {
+  margin: 10px;
+  font-weight: bold;
+}
 .summary-card {
   background: #fff;
   border-radius: 10px;
@@ -400,10 +401,14 @@ const computedButtonStyles = computed(() => {
 }
 .Polaris-TextField {
   border-radius: 6px;
+  min-height: 64px;
+  width: 100%;
 }
 .Polaris-TextField__Input {
-  font-size: 20px;
-  padding: 18px 20px;
+  font-size: 28px;
+  padding: 24px 28px 24px 28px;
+  height: 100%;
+  box-sizing: border-box;
 }
 .Polaris-Label {
   font-weight: 700;

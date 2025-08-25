@@ -419,6 +419,9 @@
             </Card>
           </div>
 
+          <!-- Draggable blocks UI -->
+          <DraggableBlocks />
+
         </BlockStack>
       </div>
 
@@ -442,6 +445,7 @@
 <script setup>
 import { ref, computed } from "vue";
 import RightPreveiwForm from './RightPreveiwForm.vue'
+import DraggableBlocks from './DraggableBlocks.vue'
 // Country selector state and logic (inlined from CountrySelector.vue)
 const selectedCountry = ref("Morocco");
 const countryOptions = [
