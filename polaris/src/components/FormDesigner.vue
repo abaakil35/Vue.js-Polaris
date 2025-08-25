@@ -425,6 +425,11 @@
       <div class="preview-section">
         <Text variant="headingMd" as="h2">Aperçu en direct :</Text>
         <RightPreveiwForm :settings="buttonSettings" />
+        <div class="preview-bottom-actions">
+          <Button variant="primary" size="large">Confirmer le résultat</Button>
+          <Button variant="secondary" size="large">Annuler</Button>
+        </div>
+
       </div>
 
     </div>
@@ -607,13 +612,22 @@ function toggleButtonPreview() {
   showHelpCard.value = showButtonCustomization.value;
 }
 </script>
-
+<style scoped>
+/* Fixed bottom-right action buttons for preview section */
+.preview-bottom-actions {
+  position: fixed;
+  right: 32px;
+  bottom: 25px;
+  display: flex;
+  gap: 16px;
+  z-index: 100;
+}
+</style>
 <style scoped>
 .country-selection-container {
   width: 100%;
   max-width: 400px;
   box-sizing: border-box;
-  margin-top: 6px;
   background-color: white;
   border-radius: 8px;
   box-shadow: 0 6px 20px rgba(22, 23, 24, 0.08);
