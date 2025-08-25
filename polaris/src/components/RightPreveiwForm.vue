@@ -1,5 +1,5 @@
 <template>
-  <Card class="mx-auto p-4" style="width: 400px; margin-top: 25px;">
+  <Card class="mx-auto p-4" style="width: 400px; margin-top: 25px">
     <!-- Product Summary -->
     <div class="summary-card">
       <div class="summary-header">
@@ -196,7 +196,17 @@
             class="custom-preview-button"
             :style="computedButtonStyles"
             :animation="settings.buttonAnimation"
-            style="width: 100%; font-weight: bold; padding: 14px 0; border: none; display: flex; align-items: center; justify-content: center; gap: 8px;"
+            style="
+              width: 100%;
+              font-weight: bold;
+              font-size: 16px;
+              padding: 14px 0;
+              border: none;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              gap: 8px;
+            "
             type="submit"
           >
             <span
@@ -256,7 +266,8 @@ const computedButtonStyles = computed(() => {
   border: 1px solid #eee;
   margin-bottom: 18px;
   box-shadow: 0 1px 4px rgba(22, 23, 24, 0.04);
-  padding: 0 0 10px 0;
+  padding: 0;
+  overflow: hidden;
 }
 .summary-header {
   display: flex;
@@ -313,8 +324,9 @@ const computedButtonStyles = computed(() => {
 .summary-totals {
   background: #f6f7f8;
   border-radius: 0 0 10px 10px;
-  padding: 10px 16px 8px 16px;
+  padding: 10px 16px 13px 16px;
   font-size: 15px;
+  margin-bottom: 0;
 }
 .summary-row {
   display: flex;
@@ -346,6 +358,7 @@ const computedButtonStyles = computed(() => {
   border: none;
   border-radius: 4px;
   padding: 12px 20px;
+  font-size: 16px;
   font-weight: 700;
   cursor: pointer;
   display: flex;
@@ -389,7 +402,8 @@ const computedButtonStyles = computed(() => {
   border-radius: 6px;
 }
 .Polaris-TextField__Input {
-  font-size: 16px;
+  font-size: 20px;
+  padding: 18px 20px;
 }
 .Polaris-Label {
   font-weight: 700;

@@ -875,7 +875,9 @@ function toggleButtonPreview() {
 /* Layout for design and preview sections */
 .design-preview-layout {
   display: flex;
-  gap: 20px;
+  gap: 17px;
+  height: calc(100vh - 140px); /* same height rule you used */
+  overflow: hidden;
 
 }
 
@@ -883,16 +885,26 @@ function toggleButtonPreview() {
   flex: 2;
   min-width: 0;
   overflow-y: auto; /* Keep scrolling functionality */
+  overflow-x: hidden; /* Prevent horizontal scrollbar */
   max-height: 100%;
-  padding-right: 2px; /* Reduced padding since there's no scrollbar */
+  /* Reduced padding since there's no scrollbar */
 }
 
+.design-section,
 .preview-section {
-  flex: 2;
+  flex: 1;              /* take equal space */
+  overflow-y: auto;     /* allow scrolling */
+  height: 100%;         /* required for overflow to work */
+  }
+
+.preview-section {
+  flex: 1;
   min-width: 0;
   overflow-y: auto; /* Keep scrolling functionality */
+  overflow-x: hidden; /* Prevent horizontal scrollbar */
   max-height: 100%;
-  padding-right: 2px; /* Reduced padding since there's no scrollbar */
+;
+  /* Reduced padding since there's no scrollbar */
 }
 
 .preview-container {
@@ -1126,19 +1138,13 @@ function toggleButtonPreview() {
 }
 
 /* Hide scrollbars for all sections */
-.design-section::-webkit-scrollbar,
-.preview-section::-webkit-scrollbar,
-.preview-container::-webkit-scrollbar {
-  width: 0;
-  height: 0;
-  display: none; /* Hide scrollbar */
-}
-
-/* For Firefox */
 .design-section,
-.preview-section,
-.preview-container {
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE and Edge */
+.preview-section {
+  -ms-overflow-style: none;  /* IE & Edge */
+  scrollbar-width: none;     /* Firefox */
+}
+.design-section::-webkit-scrollbar,
+.preview-section::-webkit-scrollbar {
+  display: none;             /* Chrome, Safari */
 }
 </style>
