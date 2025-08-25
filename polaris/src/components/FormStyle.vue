@@ -48,6 +48,11 @@
         </InlineStack>
       </BlockStack>
 
+      <BlockStack gap="100">
+        <Text as="label" variant="bodyMd">Gap between items</Text>
+        <RangeSlider v-model="gap" min="0" max="48" />
+      </BlockStack>
+
       <Text as="p" variant="bodySm" tone="subdued"
         ><b>Important:</b> changing the background color of your form could
         negatively affect your conversion rate.</Text
@@ -99,7 +104,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, watch, defineEmits } from "vue";
 import {
   Card,
   BlockStack,
@@ -111,24 +116,60 @@ import {
   Checkbox,
 } from "@ownego/polaris-vue";
 
+const emit = defineEmits(["update:style"]);
 const textColor = ref("rgba(0,0,0,1)");
 const fontSize = ref(16);
 const bgColor = ref("rgba(255,255,255,1)");
 const borderRadius = ref(8);
-const borderWidth = ref(1);
+const borderWidth = ref(0);
 const borderColor = ref("rgba(0,0,0,1)");
 const shadow = ref(8);
+
+const gap = ref(28);
 const hideLabels = ref(false);
 const rtlSupport = ref(false);
+
+function emitStyle() {
+  emit("update:style", {
+    textColor: textColor.value,
+    fontSize: fontSize.value,
+    bgColor: bgColor.value,
+    borderRadius: borderRadius.value,
+    borderWidth: borderWidth.value,
+    borderColor: borderColor.value,
+    shadow: shadow.value,
+    gap: gap.value,
+    hideLabels: hideLabels.value,
+    rtlSupport: rtlSupport.value,
+  });
+}
+
+watch(
+  [
+    textColor,
+    fontSize,
+    bgColor,
+    borderRadius,
+    borderWidth,
+    borderColor,
+    shadow,
+    gap,
+    hideLabels,
+    rtlSupport,
+  ],
+  emitStyle,
+  { immediate: true }
+);
 
 function resetToDefault() {
   textColor.value = "rgba(0,0,0,1)";
   fontSize.value = 16;
   bgColor.value = "rgba(255,255,255,1)";
   borderRadius.value = 8;
-  borderWidth.value = 1;
+  borderWidth.value = 0;
   borderColor.value = "rgba(0,0,0,1)";
   shadow.value = 8;
+  gap.value = 28;
   hideLabels.value = false;
   rtlSupport.value = false;
 }

@@ -12,7 +12,11 @@
       :move-transition="'draggable-block-move'"
     >
       <template #item="{ element, index }">
-        <div :class="blockClass(element)" class="draggable-block-row">
+        <div
+          :key="element.id"
+          :class="blockClass(element)"
+          class="draggable-block-row block-animate"
+        >
           <span class="drag-handle" title="Drag">
             <svg width="16" height="16" fill="none" viewBox="0 0 20 20">
               <circle cx="5" cy="5" r="2" fill="#bbb" />
@@ -131,10 +135,11 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { Card, Button, Modal, BlockStack, Text } from "@ownego/polaris-vue";
 import draggable from "vuedraggable";
 
+const emit = defineEmits(["update:blocks"]);
 const open = ref(false);
 const items = [
   { label: "Title or text" },
@@ -158,6 +163,15 @@ const blocks = ref([
   { id: 6, label: "Address", visible: true, active: true },
   { id: 7, label: "Address 2", visible: true, active: true },
 ]);
+
+watch(
+  blocks,
+  (val) => {
+    // Always emit a new array reference to ensure parent reactivity
+    emit("update:blocks", val.slice());
+  },
+  { deep: true }
+);
 
 function toggleVisibility(block) {
   block.visible = !block.visible;
@@ -224,10 +238,28 @@ function addItem(item) {
   background: #fff;
   font-size: 15px;
   font-weight: 500;
-  transition: background 0.2s, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: background 0.2s, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.3s;
+  box-shadow: 0 1px 4px rgba(22, 23, 24, 0.04);
 }
 .draggable-block-row:hover {
   background: #fafbfb;
+  box-shadow: 0 4px 16px rgba(22, 23, 24, 0.1);
+}
+.block-animate {
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s;
+}
+.block-fade-move-enter-active,
+.block-fade-move-leave-active {
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.block-fade-move-enter-from,
+.block-fade-move-leave-to {
+  opacity: 0;
+  transform: translateY(20px) scale(0.98);
+}
+.block-fade-move-leave-active {
+  position: absolute;
 }
 .block-disabled {
   background: #f1f3f5 !important;

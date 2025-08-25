@@ -420,11 +420,11 @@
           </div>
 
           <!-- Draggable blocks UI -->
-          <DraggableBlocks />
+          <DraggableBlocks v-model:blocks="blocks" />
 
           <!-- Form Style Section at the bottom of the left column -->
           <BlockStack gap="200" class="form-style-bottom-container">
-            <FormStyle />
+            <FormStyle @update:style="formStyle = $event" />
             <GenericErrorTexts />
           </BlockStack>
         </BlockStack>
@@ -432,7 +432,7 @@
 
       <div class="preview-section">
         <Text variant="headingMd" as="h2">Aperçu en direct :</Text>
-        <RightPreveiwForm :settings="buttonSettings" />
+  <RightPreveiwForm :settings="buttonSettings" :fields="blocks" :container-style="formStyle" />
         <div class="preview-bottom-actions">
           <Button variant="primary" size="large">Confirmer le résultat</Button>
           <Button variant="secondary" size="large">Annuler</Button>
@@ -468,6 +468,30 @@ const multiCountryActive = ref(false);
 function onMultiCountry() {
   multiCountryActive.value = !multiCountryActive.value;
 }
+
+// --- Draggable blocks state for live preview ---
+const blocks = ref([
+  { id: 1, label: "Discount Codes", visible: true, active: true },
+  { id: 2, label: "Enter your shipping address", visible: true, active: true },
+  { id: 3, label: "First name", visible: true, active: true },
+  { id: 4, label: "Last name", visible: true, active: true },
+  { id: 5, label: "Phone number", visible: true, active: true },
+  { id: 6, label: "Address", visible: true, active: true },
+  { id: 7, label: "Address 2", visible: true, active: true },
+]);
+
+// --- Form style state for preview container ---
+const formStyle = ref({
+  textColor: "rgba(0,0,0,1)",
+  fontSize: 16,
+  bgColor: "rgba(255,255,255,1)",
+  borderRadius: 8,
+  borderWidth: 1,
+  borderColor: "rgba(0,0,0,1)",
+  shadow: 8,
+  hideLabels: false,
+  rtlSupport: false,
+});
 // Import components
 import {
   Banner,

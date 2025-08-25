@@ -10,7 +10,9 @@
   },
   "dependencies": {
     "@ownego/polaris-vue": "^2.1.32",
-    "vue": "^3.5.18"
+    "framer": "^2.4.1",
+    "vue": "^3.5.18",
+    "vuedraggable": "^2.24.3"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.12",
