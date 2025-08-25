@@ -1,6 +1,6 @@
 <template>
   <BlockStack gap="600">
-    <Text variant="headingLg" as="h1" fontWeight="bold"
+    <Text variant="headingLg" as="h1" fontWeight="bold" style="margin-top: 10px;"
       >Form Builder :</Text
     >
 
@@ -337,14 +337,14 @@
           <!-- Info Banner based on selection -->
 
           <!-- Country selector moved into the left design column so it scrolls with the left column -->
+          <Text as="h2" variant="headingMd" fontWeight="bold">
+            2. Sélectionnez votre pays de formulaire
+          </Text>
           <div class="country-selection-container">
             <Card padding="500" rounded="large">
               <BlockStack gap="400">
-                <Text as="h2" variant="headingMd" fontWeight="bold">
-                  2. Sélectionnez votre pays de formulaire
-                </Text>
                 <BlockStack gap="200">
-                  <Text as="label" variant="bodyMd">Pays</Text>
+                  <Text as="label" variant="bodyMd" fontWeight="bold" style="font-weight: bold;">Pays</Text>
                   <Select v-model="selectedCountry" :options="countryOptions" />
                   <Text as="p" variant="bodySm" tone="subdued" fontStyle="italic">
                     Toutes les commandes passées avec le formulaire seront enregistrées
@@ -424,34 +424,7 @@
 
       <div class="preview-section">
         <Text variant="headingMd" as="h2">Aperçu en direct :</Text>
-        <div class="preview-container">
-          <!-- Button Preview -->
-          <div
-            :class="[
-              'preview-button-container',
-              { 'sticky-mobile': stickyMobile },
-            ]"
-          >
-            <button
-              v-if="showButtonCustomization"
-              class="custom-preview-button"
-              :style="buttonStyles"
-              :animation="buttonAnimation.value"
-            >
-              <span
-                v-if="buttonIconDisplay"
-                class="button-icon"
-                v-html="selectedIconSvg"
-              ></span>
-              <div class="button-text-content">
-                {{ buttonText }}
-                <small v-if="buttonSubtitle" class="button-subtitle">{{
-                  buttonSubtitle
-                }}</small>
-              </div>
-            </button>
-          </div>
-        </div>
+        <RightPreveiwForm :settings="buttonSettings" />
       </div>
 
     </div>
@@ -463,6 +436,7 @@
 
 <script setup>
 import { ref, computed } from "vue";
+import RightPreveiwForm from './RightPreveiwForm.vue'
 // Country selector state and logic (inlined from CountrySelector.vue)
 const selectedCountry = ref("Morocco");
 const countryOptions = [
@@ -582,6 +556,20 @@ const selectedIconSvg = computed(() => {
       return "";
   }
 });
+
+const buttonSettings = computed(() => ({
+  buttonText: buttonText.value,
+  buttonSubtitle: buttonSubtitle.value,
+  buttonBgColor: buttonBgColor.value,
+  buttonTextColor: buttonTextColor.value,
+  textSize: textSize.value,
+  borderRadius: borderRadius.value,
+  borderWidth: borderWidth.value,
+  borderColor: borderColor.value,
+  boxShadow: boxShadow.value,
+  buttonAnimation: buttonAnimation.value,
+  buttonIconHtml: selectedIconSvg.value,
+}));
 
 const buttonStyles = computed(() => {
   // Ensure background color is applied correctly
@@ -888,13 +876,11 @@ function toggleButtonPreview() {
 .design-preview-layout {
   display: flex;
   gap: 20px;
-  height: calc(
-    100vh - 120px
-  ); /* Set a height for the layout to enable scrolling */
+
 }
 
 .design-section {
-  flex: 3;
+  flex: 2;
   min-width: 0;
   overflow-y: auto; /* Keep scrolling functionality */
   max-height: 100%;

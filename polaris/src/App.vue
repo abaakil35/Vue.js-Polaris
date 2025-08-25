@@ -14,8 +14,8 @@ import FormDesigner from "./components/FormDesigner.vue";
 
 <style>
 .app-container {
-  padding: 20px;
-  max-width: 800px;
+  padding: 5px;
+  max-width: 850px;
   margin: 0 auto;
 }
 </style>
