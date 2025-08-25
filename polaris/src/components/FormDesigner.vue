@@ -422,6 +422,10 @@
           <!-- Draggable blocks UI -->
           <DraggableBlocks />
 
+          <!-- Form Style Section at the bottom of the left column -->
+          <div class="form-style-bottom-container">
+            <FormStyle />
+          </div>
         </BlockStack>
       </div>
 
@@ -446,6 +450,7 @@
 import { ref, computed } from "vue";
 import RightPreveiwForm from './RightPreveiwForm.vue'
 import DraggableBlocks from './DraggableBlocks.vue'
+import FormStyle from './FormStyle.vue'
 // Country selector state and logic (inlined from CountrySelector.vue)
 const selectedCountry = ref("Morocco");
 const countryOptions = [
@@ -617,6 +622,13 @@ function toggleButtonPreview() {
 }
 </script>
 <style scoped>
+/* Form style bottom container for left section */
+.form-style-bottom-container {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin-top: 16px;
+}
 /* Fixed bottom-right action buttons for preview section */
 .preview-bottom-actions {
   position: fixed;

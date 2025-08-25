@@ -120,11 +120,7 @@
   <Modal :open="open" @close="open = false" sectioned>
     <template #title>Add a custom field, button, text or image</template>
     <BlockStack gap="300" class="modal-list">
-      <div
-        v-for="item in items"
-        :key="item.label"
-        class="modal-row"
-      >
+      <div v-for="item in items" :key="item.label" class="modal-row">
         <Text as="p" variant="bodyMd" class="modal-item-label">
           {{ item.label }}
         </Text>
@@ -132,7 +128,6 @@
       </div>
     </BlockStack>
   </Modal>
-
 </template>
 
 <script setup>
@@ -155,7 +150,7 @@ const items = [
 ];
 
 const blocks = ref([
-  { id: 1, label: "DISCOUNT CODES", visible: false, active: false },
+  { id: 1, label: "Discount Codes", visible: true, active: true },
   { id: 2, label: "Enter your shipping address", visible: true, active: true },
   { id: 3, label: "First name", visible: true, active: true },
   { id: 4, label: "Last name", visible: true, active: true },
@@ -191,8 +186,17 @@ function blockClass(block) {
   return "";
 }
 function addItem(item) {
-  // Placeholder for add action
-  // You can implement adding logic here
+  // Add the selected item to the blocks array with a unique id and default properties
+  const newId =
+    blocks.value.length > 0
+      ? Math.max(...blocks.value.map((b) => b.id)) + 1
+      : 1;
+  blocks.value.push({
+    id: newId,
+    label: item.label,
+    visible: true,
+    active: true,
+  });
   open.value = false;
 }
 </script>
@@ -222,7 +226,9 @@ function addItem(item) {
   font-weight: 500;
   transition: background 0.2s, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.draggable-block-row:hover { background: #fafbfb; }
+.draggable-block-row:hover {
+  background: #fafbfb;
+}
 .block-disabled {
   background: #f1f3f5 !important;
   color: #bbb;
@@ -282,5 +288,13 @@ function addItem(item) {
 .modal-item-label {
   font-size: 14px;
   color: #202223;
+}
+</style>
+
+<style scoped>
+/* Remove top and bottom padding from .Polaris-Box inside modals */
+.Polaris-Box {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
 }
 </style>
