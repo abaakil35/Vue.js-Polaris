@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@ownego/polaris-vue": "^2.1.32",
+    "motion": "^12.23.12",
     "vue": "^3.5.18",
     "vuedraggable": "^4.1.0"
   },

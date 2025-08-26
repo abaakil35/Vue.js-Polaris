@@ -48,11 +48,6 @@
         </InlineStack>
       </BlockStack>
 
-      <BlockStack gap="100">
-        <Text as="label" variant="bodyMd">Gap between items</Text>
-        <RangeSlider v-model="gap" min="0" max="48" />
-      </BlockStack>
-
       <Text as="p" variant="bodySm" tone="subdued"
         ><b>Important:</b> changing the background color of your form could
         negatively affect your conversion rate.</Text
@@ -104,7 +99,7 @@
 </template>
 
 <script setup>
-import { ref, watch, defineEmits } from "vue";
+import { ref, watch } from "vue";
 import {
   Card,
   BlockStack,

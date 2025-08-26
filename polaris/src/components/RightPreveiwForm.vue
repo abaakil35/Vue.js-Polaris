@@ -71,7 +71,7 @@
               <div
                 v-for="field in fields"
                 :key="field.id"
-                class="block-animate"
+                class="block-animate form-item-wrapper"
               >
                 <TextField
                   v-if="field.visible"
