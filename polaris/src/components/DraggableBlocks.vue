@@ -108,59 +108,178 @@
             </span>
           </div>
           <!-- Add-only: Inline edit form appears below the row when pen is clicked -->
-          <div
-            v-if="editId === element.id"
-            class="block-edit-panel-pol"
-            style="margin-top: 16px"
-          >
-            <Card>
-              <BlockStack gap="4">
-                <TextField
-                  label="Label"
-                  v-model="editForm.label"
-                  autoComplete="off"
-                />
-                <TextField
-                  label="Placeholder"
-                  v-model="editForm.placeholder"
-                  autoComplete="off"
-                />
-                <Checkbox label="Show field icon" v-model="editForm.showIcon" />
-                <Checkbox label="Required" v-model="editForm.required" />
-                <Checkbox
-                  label="Disable email validation (customers can enter a wrong email)"
-                  v-model="editForm.disableValidation"
-                />
-                <div style="display: flex; gap: 16px">
-                  <TextField
-                    label="Min length"
-                    v-model="editForm.minLength"
-                    type="number"
-                    style="max-width: 100px"
-                  />
-                  <TextField
-                    label="Max length"
-                    v-model="editForm.maxLength"
-                    type="number"
-                    style="max-width: 100px"
-                  />
-                </div>
-                <TextField
-                  label="Invalid email error text"
-                  v-model="editForm.invalidEmailText"
-                  autoComplete="off"
-                />
-                <div style="display: flex; gap: 8px; margin-top: 12px">
-                  <Button @click="saveEdit(element)" variant="primary"
-                    >Save</Button
-                  >
-                  <Button @click="editId = null" variant="secondary"
-                    >Cancel</Button
-                  >
-                </div>
-              </BlockStack>
-            </Card>
-          </div>
+          <transition name="fade-slide-edit-form">
+            <div
+              v-if="editId === element.id"
+              class="block-edit-panel-pol"
+              style="margin-top: 16px; margin-bottom: 24px"
+            >
+              <Card>
+                <BlockStack gap="4">
+                  <!-- Special form for Discount Codes -->
+                  <template v-if="editForm.label === 'Discount Codes'">
+                    <Checkbox
+                      label="Limit to 1 discount code per order"
+                      v-model="editForm.limitOne"
+                    />
+                    <TextField
+                      label="Discounts line text"
+                      v-model="editForm.discountsLineText"
+                      autoComplete="off"
+                    />
+                    <TextField
+                      label="Discount code field label"
+                      v-model="editForm.discountCodeFieldLabel"
+                      autoComplete="off"
+                    />
+                    <TextField
+                      label="Apply button text"
+                      v-model="editForm.applyButtonText"
+                      autoComplete="off"
+                    />
+                    <div>
+                      <label
+                        style="
+                          font-size: 14px;
+                          font-weight: 500;
+                          margin-bottom: 4px;
+                          display: block;
+                        "
+                      >
+                        Apply button background color
+                      </label>
+                      <input
+                        type="color"
+                        v-model="editForm.applyButtonBgColor"
+                        style="
+                          width: 40px;
+                          height: 40px;
+                          border: none;
+                          background: none;
+                          vertical-align: middle;
+                          margin-right: 8px;
+                        "
+                      />
+                      <input
+                        type="text"
+                        v-model="editForm.applyButtonBgColor"
+                        style="width: 120px; vertical-align: middle"
+                      />
+                    </div>
+                    <TextField
+                      label="Invalid discount code error text"
+                      v-model="editForm.invalidDiscountCodeErrorText"
+                      autoComplete="off"
+                    />
+                    <TextField
+                      label="1 discount code allowed error text"
+                      v-model="editForm.oneDiscountAllowedErrorText"
+                      autoComplete="off"
+                    />
+                    <div style="margin-top: 16px">
+                      <div
+                        style="
+                          display: flex;
+                          align-items: flex-start;
+                          background: #f4f6fa;
+                          border-radius: 8px;
+                          padding: 12px 16px;
+                          gap: 12px;
+                        "
+                      >
+                        <svg
+                          width="24"
+                          height="24"
+                          fill="none"
+                          viewBox="0 0 20 20"
+                          style="flex-shrink: 0"
+                        >
+                          <rect width="20" height="20" rx="10" fill="#B4E1FA" />
+                          <path
+                            d="M10 6v4"
+                            stroke="#007ACE"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                          />
+                          <circle cx="10" cy="13" r="1" fill="#007ACE" />
+                        </svg>
+                        <div style="flex: 1; font-size: 14px; color: #202223">
+                          The app will accept all your discount codes. To create discount codes click
+                          here:
+                          <div style="margin-top: 8px">
+                            <Button variant="secondary" size="slim">
+                              Create discount codes
+                            </Button>
+                          </div>
+                        </div>
+                        <button
+                          style="
+                            background: none;
+                            border: none;
+                            cursor: pointer;
+                            font-size: 18px;
+                            color: #888;
+                            margin-left: 8px;
+                          "
+                        >
+                          &times;
+                        </button>
+                      </div>
+                    </div>
+                  </template>
+                  <!-- Default form for all other items -->
+                  <template v-else>
+                    <TextField
+                      label="Label"
+                      v-model="editForm.label"
+                      autoComplete="off"
+                    />
+                    <TextField
+                      label="Placeholder"
+                      v-model="editForm.placeholder"
+                      autoComplete="off"
+                    />
+                    <Checkbox
+                      label="Show field icon"
+                      v-model="editForm.showIcon"
+                    />
+                    <Checkbox label="Required" v-model="editForm.required" />
+                    <Checkbox
+                      label="Disable email validation (customers can enter a wrong email)"
+                      v-model="editForm.disableValidation"
+                    />
+                    <div style="display: flex; gap: 16px">
+                      <TextField
+                        label="Min length"
+                        v-model="editForm.minLength"
+                        type="number"
+                        style="max-width: 100px"
+                      />
+                      <TextField
+                        label="Max length"
+                        v-model="editForm.maxLength"
+                        type="number"
+                        style="max-width: 100px"
+                      />
+                    </div>
+                    <TextField
+                      label="Invalid email error text"
+                      v-model="editForm.invalidEmailText"
+                      autoComplete="off"
+                    />
+                  </template>
+                  <div style="display: flex; gap: 8px; margin-top: 12px">
+                    <Button @click="saveEdit(element)" variant="primary"
+                      >Save</Button
+                    >
+                    <Button @click="editId = null" variant="secondary"
+                      >Cancel</Button
+                    >
+                  </div>
+                </BlockStack>
+              </Card>
+            </div>
+          </transition>
         </div>
       </template>
     </draggable>
@@ -422,5 +541,21 @@ function saveEdit(block) {
 .Polaris-Box {
   padding-top: 0 !important;
   padding-bottom: 0 !important;
+}
+
+/* Animation for inline edit form */
+.fade-slide-edit-form-enter-active,
+.fade-slide-edit-form-leave-active {
+  transition: opacity 0.25s, transform 0.25s;
+}
+.fade-slide-edit-form-enter-from,
+.fade-slide-edit-form-leave-to {
+  opacity: 0;
+  transform: translateY(-10px) scale(0.98);
+}
+.fade-slide-edit-form-enter-to,
+.fade-slide-edit-form-leave-from {
+  opacity: 1;
+  transform: translateY(0) scale(1);
 }
 </style>

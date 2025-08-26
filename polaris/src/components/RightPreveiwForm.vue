@@ -73,103 +73,157 @@
                 :key="field.id"
                 class="block-animate form-item-wrapper"
               >
-                <TextField
-                  v-if="field.visible"
-                  :label="containerStyle?.hideLabels ? '' : field.label"
-                  :placeholder="field.label"
-                  requiredIndicator
-                  :label-style="labelCustomStyle"
-                  :input-style="inputCustomStyle"
-                >
-                  <template #prefix v-if="field.label === 'First name'">
-                    <svg
-                      width="20"
-                      height="20"
-                      fill="#212b36"
-                      viewBox="0 0 20 20"
-                    >
-                      <circle cx="10" cy="7" r="4" />
-                      <rect x="4" y="13" width="12" height="5" rx="2" />
-                    </svg>
-                  </template>
-                  <template #prefix v-else-if="field.label === 'Last name'">
-                    <svg
-                      width="20"
-                      height="20"
-                      fill="#212b36"
-                      viewBox="0 0 20 20"
-                    >
-                      <circle cx="10" cy="7" r="4" />
-                      <rect x="4" y="13" width="12" height="5" rx="2" />
-                    </svg>
-                  </template>
-                  <template #prefix v-else-if="field.label === 'Phone number'">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="20"
-                      height="20"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      stroke-width="2"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M22 16.92v3a2 2 0 0 1-2.18 2A19.72 19.72 0 0 1 2.08 4.18 2 2 0 0 1 4.06 2h3a2 2 0 0 1 2 1.72c.13 1.05.37 2.07.72 3.06a2 2 0 0 1-.45 2.11l-1.27 1.27a16 16 0 0 0 6.29 6.29l1.27-1.27a2 2 0 0 1 2.11-.45c.99.35 2.01.59 3.06.72A2 2 0 0 1 22 16.92z"
-                      />
-                    </svg>
-                  </template>
-                  <template
-                    #prefix
-                    v-else-if="
-                      field.label === 'Address' ||
-                      field.label === 'Address 2' ||
-                      field.label === 'Province' ||
-                      field.label === 'City' ||
-                      field.label === 'Zip code'
+                <!-- Special case: Discount Codes block -->
+                <template v-if="field.label === 'Discount Codes'">
+                  <div
+                    class="draggable-block-row block-animate"
+                    style="
+                      display: flex;
+                      flex-direction: column;
+                      margin-top: 10px;
+                      margin-bottom: 8px;
                     "
                   >
-                    <svg
-                      width="20"
-                      height="20"
-                      fill="#212b36"
-                      viewBox="0 0 20 20"
+                    <div
+                      style="display: flex; gap: 12px; align-items: flex-end"
                     >
-                      <path
-                        d="M10 2C6.686 2 4 4.686 4 8c0 4.418 6 10 6 10s6-5.582 6-10c0-3.314-2.686-6-6-6zm0 8.5A2.5 2.5 0 1110 5a2.5 2.5 0 010 5.5z"
+                      <TextField
+                        label="Discount code"
+                        placeholder="Discount code"
+                        style="flex: 1; min-width: 0; margin-bottom: 0"
+                        :label-style="labelCustomStyle"
+                        :input-style="{
+                          fontSize: '16px',
+                          padding: '12px 16px',
+                          borderRadius: '8px',
+                          height: '44px',
+                        }"
                       />
-                    </svg>
-                  </template>
-                  <template #prefix v-else-if="field.label === 'Email'">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="20"
-                      height="20"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      stroke-width="2"
+                      <Button
+                        :style="{
+                          background: '#111',
+                          color: '#fff',
+                          borderRadius: '8px',
+                          height: '44px',
+                          lineHeight: '4px',
+                          fontWeight: 'bold',
+                          fontSize: '16px',
+                          minWidth: '120px',
+                          padding: '0 24px',
+                          boxSizing: 'border-box',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                        }"
+                      >
+                        Apply
+                      </Button>
+                    </div>
+                  </div>
+                </template>
+                <!-- Default: Other fields -->
+                <template v-else>
+                  <TextField
+                    v-if="field.visible"
+                    :label="containerStyle?.hideLabels ? '' : field.label"
+                    :placeholder="field.label"
+                    requiredIndicator
+                    :label-style="labelCustomStyle"
+                    :input-style="inputCustomStyle"
+                  >
+                    <template #prefix v-if="field.label === 'First name'">
+                      <svg
+                        width="20"
+                        height="20"
+                        fill="#212b36"
+                        viewBox="0 0 20 20"
+                      >
+                        <circle cx="10" cy="7" r="4" />
+                        <rect x="4" y="13" width="12" height="5" rx="2" />
+                      </svg>
+                    </template>
+                    <template #prefix v-else-if="field.label === 'Last name'">
+                      <svg
+                        width="20"
+                        height="20"
+                        fill="#212b36"
+                        viewBox="0 0 20 20"
+                      >
+                        <circle cx="10" cy="7" r="4" />
+                        <rect x="4" y="13" width="12" height="5" rx="2" />
+                      </svg>
+                    </template>
+                    <template
+                      #prefix
+                      v-else-if="field.label === 'Phone number'"
                     >
-                      <rect
-                        x="3"
-                        y="5"
-                        width="18"
-                        height="14"
-                        rx="2"
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        fill="none"
+                        viewBox="0 0 24 24"
                         stroke="currentColor"
                         stroke-width="2"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M22 16.92v3a2 2 0 0 1-2.18 2A19.72 19.72 0 0 1 2.08 4.18 2 2 0 0 1 4.06 2h3a2 2 0 0 1 2 1.72c.13 1.05.37 2.07.72 3.06a2 2 0 0 1-.45 2.11l-1.27 1.27a16 16 0 0 0 6.29 6.29l1.27-1.27a2 2 0 0 1 2.11-.45c.99.35 2.01.59 3.06.72A2 2 0 0 1 22 16.92z"
+                        />
+                      </svg>
+                    </template>
+                    <template
+                      #prefix
+                      v-else-if="
+                        field.label === 'Address' ||
+                        field.label === 'Address 2' ||
+                        field.label === 'Province' ||
+                        field.label === 'City' ||
+                        field.label === 'Zip code'
+                      "
+                    >
+                      <svg
+                        width="20"
+                        height="20"
+                        fill="#212b36"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          d="M10 2C6.686 2 4 4.686 4 8c0 4.418 6 10 6 10s6-5.582 6-10c0-3.314-2.686-6-6-6zm0 8.5A2.5 2.5 0 1110 5a2.5 2.5 0 010 5.5z"
+                        />
+                      </svg>
+                    </template>
+                    <template #prefix v-else-if="field.label === 'Email'">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
                         fill="none"
-                      />
-                      <path
-                        d="M3 7l9 6 9-6"
+                        viewBox="0 0 24 24"
                         stroke="currentColor"
                         stroke-width="2"
-                        fill="none"
-                      />
-                    </svg>
-                  </template>
-                </TextField>
+                      >
+                        <rect
+                          x="3"
+                          y="5"
+                          width="18"
+                          height="14"
+                          rx="2"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          fill="none"
+                        />
+                        <path
+                          d="M3 7l9 6 9-6"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          fill="none"
+                        />
+                      </svg>
+                    </template>
+                  </TextField>
+                </template>
               </div>
             </transition-group>
           </div>
