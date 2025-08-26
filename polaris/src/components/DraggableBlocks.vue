@@ -12,88 +12,155 @@
       :move-transition="'draggable-block-move'"
     >
       <template #item="{ element, index }">
-        <div
-          :key="element.id"
-          :class="blockClass(element)"
-          class="draggable-block-row block-animate"
-        >
-          <span class="drag-handle" title="Drag">
-            <svg width="16" height="16" fill="none" viewBox="0 0 20 20">
-              <circle cx="5" cy="5" r="2" fill="#bbb" />
-              <circle cx="5" cy="10" r="2" fill="#bbb" />
-              <circle cx="5" cy="15" r="2" fill="#bbb" />
-              <circle cx="15" cy="5" r="2" fill="#bbb" />
-              <circle cx="15" cy="10" r="2" fill="#bbb" />
-              <circle cx="15" cy="15" r="2" fill="#bbb" />
-            </svg>
-          </span>
-          <span class="block-visibility" @click="toggleVisibility(element)">
-            <svg
-              v-if="element.visible"
-              width="16"
-              height="16"
-              fill="none"
-              viewBox="0 0 20 20"
-            >
-              <path
-                d="M10 4C5 4 1.73 8.11 1.73 8.11a1 1 0 000 1.78S5 16 10 16s8.27-6.11 8.27-6.11a1 1 0 000-1.78S15 4 10 4z"
-                stroke="#888"
-                stroke-width="1.5"
-              />
-              <circle cx="10" cy="10" r="3" stroke="#888" stroke-width="1.5" />
-            </svg>
-            <svg v-else width="16" height="16" fill="none" viewBox="0 0 20 20">
-              <path d="M2 2l16 16" stroke="#bbb" stroke-width="1.5" />
-              <path
-                d="M10 4C5 4 1.73 8.11 1.73 8.11a1 1 0 000 1.78S5 16 10 16s8.27-6.11 8.27-6.11a1 1 0 000-1.78S15 4 10 4z"
-                stroke="#bbb"
-                stroke-width="1.5"
-              />
-              <circle cx="10" cy="10" r="3" stroke="#bbb" stroke-width="1.5" />
-            </svg>
-          </span>
-          <span class="block-title">{{ element.label }}</span>
-          <span class="block-actions">
-            <Button
-              variant="plain"
-              @click="editBlock(element)"
-              size="slim"
-              icon
-            >
-              <template #icon>
-                <svg width="16" height="16" fill="none" viewBox="0 0 20 20">
-                  <path
-                    d="M3 14.25V17h2.75L16.81 5.94l-2.75-2.75L3 14.25zM18.71 4.04a1 1 0 000-1.41l-1.34-1.34a1 1 0 00-1.41 0l-1.83 1.83 2.75 2.75 1.83-1.83z"
-                    fill="#888"
+        <div>
+          <div
+            :key="element.id"
+            :class="blockClass(element)"
+            class="draggable-block-row block-animate"
+          >
+            <span class="drag-handle" title="Drag">
+              <svg width="16" height="16" fill="none" viewBox="0 0 20 20">
+                <circle cx="5" cy="5" r="2" fill="#bbb" />
+                <circle cx="5" cy="10" r="2" fill="#bbb" />
+                <circle cx="5" cy="15" r="2" fill="#bbb" />
+                <circle cx="15" cy="5" r="2" fill="#bbb" />
+                <circle cx="15" cy="10" r="2" fill="#bbb" />
+                <circle cx="15" cy="15" r="2" fill="#bbb" />
+              </svg>
+            </span>
+            <span class="block-visibility" @click="toggleVisibility(element)">
+              <svg
+                v-if="element.visible"
+                width="16"
+                height="16"
+                fill="none"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  d="M10 4C5 4 1.73 8.11 1.73 8.11a1 1 0 000 1.78S5 16 10 16s8.27-6.11 8.27-6.11a1 1 0 000-1.78S15 4 10 4z"
+                  stroke="#888"
+                  stroke-width="1.5"
+                />
+                <circle
+                  cx="10"
+                  cy="10"
+                  r="3"
+                  stroke="#888"
+                  stroke-width="1.5"
+                />
+              </svg>
+              <svg
+                v-else
+                width="16"
+                height="16"
+                fill="none"
+                viewBox="0 0 20 20"
+              >
+                <path d="M2 2l16 16" stroke="#bbb" stroke-width="1.5" />
+                <path
+                  d="M10 4C5 4 1.73 8.11 1.73 8.11a1 1 0 000 1.78S5 16 10 16s8.27-6.11 8.27-6.11a1 1 0 000-1.78S15 4 10 4z"
+                  stroke="#bbb"
+                  stroke-width="1.5"
+                />
+              </svg>
+            </span>
+            <span class="block-title">{{ element.label }}</span>
+            <span class="block-actions">
+              <Button
+                variant="plain"
+                @click="startEdit(element)"
+                size="slim"
+                icon
+              >
+                <template #icon>
+                  <svg width="16" height="16" fill="none" viewBox="0 0 20 20">
+                    <path
+                      d="M3 14.25V17h2.75L16.81 5.94l-2.75-2.75L3 14.25zM18.71 4.04a1 1 0 000-1.41l-1.34-1.34a1 1 0 00-1.41 0l-1.83 1.83 2.75 2.75 1.83-1.83z"
+                      fill="#888"
+                    />
+                  </svg>
+                </template>
+              </Button>
+              <Button
+                variant="plain"
+                @click="moveBlockUp(index)"
+                size="slim"
+                icon
+              >
+                <template #icon>
+                  <svg width="16" height="16" fill="none" viewBox="0 0 20 20">
+                    <path d="M10 6l-4 4h8l-4-4z" fill="#888" />
+                  </svg>
+                </template>
+              </Button>
+              <Button
+                variant="plain"
+                @click="moveBlockDown(index)"
+                size="slim"
+                icon
+              >
+                <template #icon>
+                  <svg width="16" height="16" fill="none" viewBox="0 0 20 20">
+                    <path d="M10 14l4-4H6l4 4z" fill="#888" />
+                  </svg>
+                </template>
+              </Button>
+            </span>
+          </div>
+          <!-- Add-only: Inline edit form appears below the row when pen is clicked -->
+          <div
+            v-if="editId === element.id"
+            class="block-edit-panel-pol"
+            style="margin-top: 16px"
+          >
+            <Card>
+              <BlockStack gap="4">
+                <TextField
+                  label="Label"
+                  v-model="editForm.label"
+                  autoComplete="off"
+                />
+                <TextField
+                  label="Placeholder"
+                  v-model="editForm.placeholder"
+                  autoComplete="off"
+                />
+                <Checkbox label="Show field icon" v-model="editForm.showIcon" />
+                <Checkbox label="Required" v-model="editForm.required" />
+                <Checkbox
+                  label="Disable email validation (customers can enter a wrong email)"
+                  v-model="editForm.disableValidation"
+                />
+                <div style="display: flex; gap: 16px">
+                  <TextField
+                    label="Min length"
+                    v-model="editForm.minLength"
+                    type="number"
+                    style="max-width: 100px"
                   />
-                </svg>
-              </template>
-            </Button>
-            <Button
-              variant="plain"
-              @click="moveBlockUp(index)"
-              size="slim"
-              icon
-            >
-              <template #icon>
-                <svg width="16" height="16" fill="none" viewBox="0 0 20 20">
-                  <path d="M10 6l-4 4h8l-4-4z" fill="#888" />
-                </svg>
-              </template>
-            </Button>
-            <Button
-              variant="plain"
-              @click="moveBlockDown(index)"
-              size="slim"
-              icon
-            >
-              <template #icon>
-                <svg width="16" height="16" fill="none" viewBox="0 0 20 20">
-                  <path d="M10 14l4-4H6l4 4z" fill="#888" />
-                </svg>
-              </template>
-            </Button>
-          </span>
+                  <TextField
+                    label="Max length"
+                    v-model="editForm.maxLength"
+                    type="number"
+                    style="max-width: 100px"
+                  />
+                </div>
+                <TextField
+                  label="Invalid email error text"
+                  v-model="editForm.invalidEmailText"
+                  autoComplete="off"
+                />
+                <div style="display: flex; gap: 8px; margin-top: 12px">
+                  <Button @click="saveEdit(element)" variant="primary"
+                    >Save</Button
+                  >
+                  <Button @click="editId = null" variant="secondary"
+                    >Cancel</Button
+                  >
+                </div>
+              </BlockStack>
+            </Card>
+          </div>
         </div>
       </template>
     </draggable>
@@ -136,7 +203,15 @@
 
 <script setup>
 import { ref, watch } from "vue";
-import { Card, Button, Modal, BlockStack, Text } from "@ownego/polaris-vue";
+import {
+  Card,
+  Button,
+  Modal,
+  BlockStack,
+  Text,
+  TextField,
+  Checkbox,
+} from "@ownego/polaris-vue";
 import draggable from "vuedraggable";
 
 const emit = defineEmits(["update:blocks"]);
@@ -164,6 +239,18 @@ const blocks = ref([
   { id: 7, label: "Address 2", visible: true, active: true },
 ]);
 
+const editId = ref(null);
+const editForm = ref({
+  label: "",
+  placeholder: "",
+  showIcon: false,
+  required: false,
+  disableValidation: false,
+  minLength: null,
+  maxLength: null,
+  invalidEmailText: "",
+});
+
 watch(
   blocks,
   (val) => {
@@ -176,9 +263,13 @@ watch(
 function toggleVisibility(block) {
   block.visible = !block.visible;
 }
-function editBlock(block) {
-  // Placeholder for edit action
-  // No alert, implement modal or inline edit if needed
+function startEdit(block) {
+  if (editId.value === block.id) {
+    editId.value = null;
+  } else {
+    editId.value = block.id;
+    editForm.value = { ...block }; // Populate the edit form with the block data
+  }
 }
 function moveBlockUp(index) {
   if (index > 0) {
@@ -212,6 +303,11 @@ function addItem(item) {
     active: true,
   });
   open.value = false;
+}
+function saveEdit(block) {
+  // Save the edited block data
+  Object.assign(block, editForm.value);
+  editId.value = null;
 }
 </script>
 
@@ -321,9 +417,7 @@ function addItem(item) {
   font-size: 14px;
   color: #202223;
 }
-</style>
 
-<style scoped>
 /* Remove top and bottom padding from .Polaris-Box inside modals */
 .Polaris-Box {
   padding-top: 0 !important;
